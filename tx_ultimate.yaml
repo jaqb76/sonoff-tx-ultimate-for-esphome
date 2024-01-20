@@ -415,8 +415,8 @@ light:
         from: 27
         to: 27
       - id: leds_top
-        from: 0
-        to: 6
+        from: 20
+        to: 26
 
   - platform: partition
     name: "LEDs Top"
