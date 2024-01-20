@@ -105,12 +105,12 @@ logger:
 #  hardware_uart: UART2
   level: DEBUG
   logs:
-    binary_sensor: INFO
+    binary_sensor: DEBUG
     light: DEBUG
     script: DEBUG
-    switch: INFO
-    tx_ultimate_touch: INFO
-    uart_debug: INFO
+    switch: DEBUG
+    tx_ultimate_touch: DEBUG
+    uart_debug: DEBUG
 
 dashboard_import:
   package_import_url: github://SmartHome-yourself/sonoff-tx-ultimate-for-esphome/tx_ultimate.yaml@main
