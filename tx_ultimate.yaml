@@ -106,8 +106,8 @@ logger:
   level: DEBUG
   logs:
     binary_sensor: INFO
-    light: INFO
-    script: INFO
+    light: DEBUG
+    script: DEBUG
     switch: INFO
     tx_ultimate_touch: INFO
     uart_debug: INFO
