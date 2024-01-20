@@ -401,22 +401,19 @@ light:
     segments:
       - id: leds
         from: 0
-        to: 6
-      - id: leds
-        from: 8
-        to: 8
-      - id: leds
-        from: 10
-        to: 10
-      - id: leds
-        from: 12
         to: 19
       - id: leds
         from: 27
         to: 27
       - id: leds_top
         from: 20
-        to: 26
+        to: 20
+      - id: leds_top
+        from: 22
+        to: 24
+      - id: leds_top
+        from: 26
+        to: 26        
 
   - platform: partition
     name: "LEDs Top"
