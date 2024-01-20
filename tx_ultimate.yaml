@@ -412,12 +412,6 @@ light:
     internal: true
     segments:
       - id: leds
-        from: 20
-        to: 20
-      - id: leds
-        from: 22
-        to: 24
-      - id: leds
         from: 26
         to: 26
     effects:
