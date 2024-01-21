@@ -1,6 +1,6 @@
 substitutions:
-  name: "nickshew_2gang"
-  friendly_name: "Nick Shew 2 Gang Switch"
+  name: "jaqb_2gang"
+  friendly_name: "Jaqb 2 Gang Switch"
 
   relay_count: "2"
 
@@ -45,8 +45,8 @@ substitutions:
   emergency_effect: "Pulse"
   emergency_bottom_effect: "none"
 
-  garage_warning_brightness: "0.5"
-  garage_warning_colour: "{47,0,78}"
+  garage_warning_brightness: "0.8"
+  garage_warning_colour: "{0,100,0}"
   garage_warning_effect: "none"
 
   relay_1_pin: GPIO18
@@ -259,7 +259,7 @@ binary_sensor:
 switch:
   - platform: gpio      ## Relay 1
     id: relay_1
-    name: "Top Relay"
+    name: "L1"
     icon: "mdi:electric-switch"
     pin: ${relay_1_pin}
     restore_mode: RESTORE_DEFAULT_OFF
@@ -285,14 +285,14 @@ switch:
 
   - platform: gpio      ## Relay 2
     id: relay_2
-    name: "Bottom Relay"
+    name: "L2"
     icon: "mdi:electric-switch"
     pin: ${relay_2_pin}
     restore_mode: RESTORE_DEFAULT_OFF
     on_turn_on:
       then:
         - lambda: >
-            ESP_LOGD("Bottom Relay: ", "On");
+            ESP_LOGD("L2: ", "On");
         - if:
             condition:
               lambda: "return ${toggle_relay_2_on_touch};"
