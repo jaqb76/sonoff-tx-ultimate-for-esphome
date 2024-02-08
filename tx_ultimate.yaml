@@ -388,8 +388,8 @@ light:
     internal: true
     segments:
       - id: leds
-        from: 13
-        to: 19
+        from: 14
+        to: 18
 
   - platform: partition
     name: "LEDs Nightlight"
@@ -404,7 +404,7 @@ light:
         to: 8
       - id: leds
         from: 10
-        to: 12        
+        to: 13        
       - id: leds
         from: 20
         to: 27
@@ -414,8 +414,8 @@ light:
     internal: true
     segments:
       - id: leds
-        from: 9
-        to: 9
+        from: 19
+        to: 19
     effects:
       - addressable_scan:
           name: "Scan"
