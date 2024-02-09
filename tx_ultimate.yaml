@@ -15,7 +15,7 @@ substitutions:
   button_color: "{0,0,100}"
 
   nightlight: "on"
-  nightlight_brightness: "0.2"
+  nightlight_brightness: "0.6"
   nightlight_color: "{0,100,0}"
 
   latitude: "50.123456°"
@@ -316,7 +316,7 @@ light:
     type: GRB
     variant: WS2811
     pin: ${led_pin}
-    num_leds: 28
+    num_leds: 30
     name: "NeoPixel Light"
     id: leds
     default_transition_length: 0s
@@ -361,7 +361,10 @@ light:
     segments:
       - id: leds
         from: 6
-        to: 12       
+        to: 12      
+      - id: leds_top
+        from: 20
+        to: 26        
   - platform: partition
     name: "LEDs Top"
     id: leds_top
