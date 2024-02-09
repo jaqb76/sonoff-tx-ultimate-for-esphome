@@ -6,7 +6,7 @@ substitutions:
 
   toggle_relay_1_on_touch: "true"
   toggle_relay_2_on_touch: "true"
-  toggle_relay_3_on_touch: "true"
+  toggle_relay_3_on_touch: "false"
 
   vibra_time: 150ms
   button_on_time: 500ms
@@ -43,8 +43,6 @@ substitutions:
 
   relay_1_pin: GPIO18
   relay_2_pin: GPIO17
-  relay_3_pin: GPIO27
-  relay_4_pin: GPIO23
 
   vibra_motor_pin: GPIO21
   pa_power_pin: GPIO26
@@ -76,9 +74,6 @@ esphome:
           state: OFF
       - binary_sensor.template.publish:
           id: touchfield_2
-          state: OFF
-      - binary_sensor.template.publish:
-          id: touchfield_3
           state: OFF
       - binary_sensor.template.publish:
           id: multi_touch
@@ -195,21 +190,6 @@ binary_sensor:
       - delay: ${button_on_time}
       - binary_sensor.template.publish:
           id: touchfield_2
-          state: OFF
-      - script.execute: refresh_led_default
-
-  - platform: template
-    name: "Touchfield 3"
-    id: touchfield_3
-    on_press:
-      - if:
-          condition:
-            lambda: "return ${toggle_relay_3_on_touch};"
-          then:
-            - switch.toggle: relay_3
-      - delay: ${button_on_time}
-      - binary_sensor.template.publish:
-          id: touchfield_3
           state: OFF
       - script.execute: refresh_led_default
 
@@ -348,7 +328,7 @@ light:
     type: GRB
     variant: WS2811
     pin: ${led_pin}
-    num_leds: 30
+    num_leds: 28
     name: "NeoPixel Light"
     id: leds
     default_transition_length: 0s
@@ -372,16 +352,8 @@ light:
     internal: true
     segments:
       - id: leds
-        from: 1
-        to: 5
-  - platform: partition
-    name: "LEDs Button middle"
-    id: leds_button_middle
-    internal: true
-    segments:
-      - id: leds
-        from: 9
-        to: 9
+        from: 0
+        to: 6
   - platform: partition
     name: "LEDs Button left"
     id: leds_button_left
@@ -389,7 +361,7 @@ light:
     segments:
       - id: leds
         from: 14
-        to: 18
+        to: 20
 
   - platform: partition
     name: "LEDs Nightlight"
@@ -397,25 +369,16 @@ light:
     internal: true
     segments:
       - id: leds
-        from: 0
-        to: 0    
-      - id: leds
-        from: 6
-        to: 8
-      - id: leds
-        from: 10
+        from: 7
         to: 13        
-      - id: leds
-        from: 20
-        to: 27
   - platform: partition
     name: "LEDs Top"
     id: leds_top
     internal: true
     segments:
       - id: leds
-        from: 19
-        to: 19
+        from: 21
+        to: 27
     effects:
       - addressable_scan:
           name: "Scan"
@@ -568,18 +531,9 @@ script:
             - script.execute: led_on_button_left
           else:
             - script.execute: led_off_button_left
-
       - if:
           condition:
-            lambda: "return (${relay_count}==3 && id(relay_2).state) || (${relay_count}==1 && id(relay_1).state);"
-          then:
-            - script.execute: led_on_button_middle
-          else:
-            - script.execute: led_off_button_middle
-
-      - if:
-          condition:
-            lambda: "return (${relay_count}==2 && id(relay_2).state) || (${relay_count}==3 && id(relay_3).state);"
+            lambda: "return (${relay_count}==2 && id(relay_2).state) ;"
           then:
             - script.execute: led_on_button_right
           else:
@@ -598,16 +552,6 @@ script:
     then:
       - light.turn_on:
           id: leds_button_left
-          brightness: ${button_brightness}
-          red: !lambda "return id(button_color)[0]/100.0;"
-          green: !lambda "return id(button_color)[1]/100.0;"
-          blue:  !lambda "return id(button_color)[2]/100.0;"
-
-  - id: led_on_button_middle
-    mode: restart
-    then:
-      - light.turn_on:
-          id: leds_button_middle
           brightness: ${button_brightness}
           red: !lambda "return id(button_color)[0]/100.0;"
           green: !lambda "return id(button_color)[1]/100.0;"
@@ -637,24 +581,6 @@ script:
                 red: !lambda "return id(nightlight_color)[0]/100.0;"
                 green: !lambda "return id(nightlight_color)[1]/100.0;"
                 blue:  !lambda "return id(nightlight_color)[2]/100.0;"
-
-  - id: led_off_button_middle
-    mode: restart
-    then:
-      - if:
-          condition:
-            lambda: "return id(nightlight).state || id(nightlight_active).state;"
-          then:
-            - light.turn_on:
-                id: leds_button_middle
-                brightness: ${nightlight_brightness}
-                red: !lambda "return id(nightlight_color)[0]/100.0;"
-                green: !lambda "return id(nightlight_color)[1]/100.0;"
-                blue:  !lambda "return id(nightlight_color)[2]/100.0;"
-          else:
-            - light.turn_off:
-                id: leds_button_middle
-
 
   - id: led_off_button_right
     mode: restart
@@ -700,7 +626,7 @@ script:
           green: !lambda "return id(touch_color)[1]/100.0;"
           blue:  !lambda "return id(touch_color)[2]/100.0;"
           effect: ${touch_effect}
-      - delay: 6s
+      - delay: 2s
       - script.execute: refresh_led_default
 
   - id: led_on_swipe_left
@@ -778,32 +704,6 @@ script:
                   - binary_sensor.template.publish:
                       id: touchfield_2
                       state: ON
-
-      - if:
-          condition:
-            lambda: "return ${relay_count}==3;"
-          then:
-            - if:
-                condition:
-                  lambda: "return pos <= 3;"
-                then:
-                  - binary_sensor.template.publish:
-                      id: touchfield_1
-                      state: ON
-
-                else:
-                  - if:
-                      condition:
-                        lambda: "return pos <= 7;"
-                      then:
-                        - binary_sensor.template.publish:
-                            id: touchfield_2
-                            state: ON
-
-                      else:
-                        - binary_sensor.template.publish:
-                            id: touchfield_3
-                            state: ON
 
   - id: touch_led_marker
     mode: restart
