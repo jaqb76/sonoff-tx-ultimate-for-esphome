@@ -362,7 +362,7 @@ light:
       - id: leds
         from: 6
         to: 12      
-      - id: leds_top
+      - id: leds
         from: 20
         to: 26        
   - platform: partition
