@@ -259,18 +259,6 @@ switch:
         - script.execute: refresh_led_default
 
   - platform: gpio
-    id: relay_3
-    name: "${friendly_name} L3"
-    pin: ${relay_3_pin}
-    restore_mode: RESTORE_DEFAULT_OFF
-    on_turn_on:
-      then:
-        - script.execute: refresh_led_default
-    on_turn_off:
-      then:
-        - script.execute: refresh_led_default
-
-  - platform: gpio
     id: vibra
     pin: ${vibra_motor_pin}
     name: "${friendly_name} Vibration"
