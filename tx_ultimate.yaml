@@ -316,7 +316,7 @@ light:
     type: GRB
     variant: WS2811
     pin: ${led_pin}
-    num_leds: 30
+    num_leds: 28
     name: "NeoPixel Light"
     id: leds
     default_transition_length: 0s
