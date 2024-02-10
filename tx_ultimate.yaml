@@ -15,11 +15,11 @@ substitutions:
   button_color: "{0,0,100}"
 
   nightlight: "on"
-  nightlight_brightness: "0.6"
+  nightlight_brightness: "0.4"
   nightlight_color: "{0,100,0}"
 
-  latitude: "50.123456°"
-  longitude: "5.654321°"
+  latitude: "51.725634°"
+  longitude: "19.513364°"  
 
   touch_brightness: "1"
   touch_color: "{0,100,0}"
