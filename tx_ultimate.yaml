@@ -408,7 +408,7 @@ media_player:
     announcement_pipeline:
       speaker: media_out_announcement_src
     media_pipeline:
-      speaker: media_out_media_src}
+      speaker: media_out_media_src
 
 uart:
   tx_pin: ${uart_tx_pin}
