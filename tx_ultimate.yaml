@@ -405,6 +405,7 @@ media_player:
   - platform: speaker
     id: media_out
     name: ${friendly_name} Player
+    buffer_size: 16000
     announcement_pipeline:
       speaker: media_out_announcement_src
     media_pipeline:
